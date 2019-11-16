@@ -1,6 +1,8 @@
 
 package ohtu;
 
+import java.util.Comparator;
+
 public class Player {
     private String name;
     private String team;
@@ -48,9 +50,24 @@ public class Player {
         this.assists = assists;
     }
 
+    public int getPoints() {
+        return goals + assists;
+    }
+
     @Override
     public String toString() {
-        return name + " team " + team + " goals " + goals + " assists " + assists;
+        return String.format("%-20s %s  %2s + %2s = %2s", name, team, goals, assists, getPoints());
+    }
+
+    static class SortByPoints implements Comparator<Player> {
+        public int compare(Player a, Player b) {
+            int pointsCompare = b.getPoints() - a.getPoints();
+
+            if (pointsCompare == 0) {
+                return b.goals - a.goals;
+            }
+            return pointsCompare;
+        }
     }
 
 }

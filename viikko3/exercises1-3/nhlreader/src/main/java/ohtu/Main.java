@@ -19,6 +19,7 @@ public class Main {
 
         System.out.println("Players from FIN " + new Date() + "\n");
         Arrays.stream(players).filter(p -> "FIN".equals(p.getNationality()))
+            .sorted(new Player.SortByPoints())
             .forEach(System.out::println);
     }
 
