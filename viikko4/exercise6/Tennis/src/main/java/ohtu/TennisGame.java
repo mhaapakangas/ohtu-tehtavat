@@ -2,10 +2,13 @@ package ohtu;
 
 public class TennisGame {
     
-    private int m_score1 = 0;
-    private int m_score2 = 0;
+    private int player1Score = 0;
+    private int player2Score = 0;
     private String player1Name;
     private String player2Name;
+
+    private static final String[] pointsToScore = new String[] { "Love", "Fifteen", "Thirty", "Forty" };
+    private static final int winMargin = 2;
 
     public TennisGame(String player1Name, String player2Name) {
         this.player1Name = player1Name;
@@ -13,68 +16,53 @@ public class TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == "player1")
-            m_score1 += 1;
-        else
-            m_score2 += 1;
+        if (player1Name.equals(playerName)) {
+            player1Score += 1;
+        } else {
+            player2Score += 1;
+        }
     }
 
     public String getScore() {
-        String score = "";
-        int tempScore=0;
-        if (m_score1==m_score2)
-        {
-            switch (m_score1)
-            {
-                case 0:
-                        score = "Love-All";
-                    break;
-                case 1:
-                        score = "Fifteen-All";
-                    break;
-                case 2:
-                        score = "Thirty-All";
-                    break;
-                case 3:
-                        score = "Forty-All";
-                    break;
-                default:
-                        score = "Deuce";
-                    break;
-                
-            }
+        String score;
+
+        if (player1Score == player2Score) {
+            score = getDrawScore();
+        } else if (player1Score >= pointsToScore.length || player2Score >= pointsToScore.length) {
+            score = getAdvantageOrWinScore();
+        } else {
+            score = getNormalScore();
         }
-        else if (m_score1>=4 || m_score2>=4)
-        {
-            int minusResult = m_score1-m_score2;
-            if (minusResult==1) score ="Advantage player1";
-            else if (minusResult ==-1) score ="Advantage player2";
-            else if (minusResult>=2) score = "Win for player1";
-            else score ="Win for player2";
-        }
-        else
-        {
-            for (int i=1; i<3; i++)
-            {
-                if (i==1) tempScore = m_score1;
-                else { score+="-"; tempScore = m_score2;}
-                switch(tempScore)
-                {
-                    case 0:
-                        score+="Love";
-                        break;
-                    case 1:
-                        score+="Fifteen";
-                        break;
-                    case 2:
-                        score+="Thirty";
-                        break;
-                    case 3:
-                        score+="Forty";
-                        break;
-                }
-            }
-        }
+
         return score;
+    }
+
+    private String getDrawScore() {
+        if (player1Score < pointsToScore.length) {
+            return pointsToScore[player1Score] + "-All";
+        } else {
+            return "Deuce";
+        }
+    }
+
+    private String getAdvantageOrWinScore() {
+        String score;
+        int scoreDifference = player1Score - player2Score;
+        if (Math.abs(scoreDifference) >= winMargin) {
+            score = "Win for ";
+        } else {
+            score = "Advantage ";
+        }
+        if (scoreDifference < 0) {
+            score += player2Name;
+        } else {
+            score += player1Name;
+        }
+
+        return score;
+    }
+
+    private String getNormalScore() {
+        return pointsToScore[player1Score] + "-" + pointsToScore[player2Score];
     }
 }
