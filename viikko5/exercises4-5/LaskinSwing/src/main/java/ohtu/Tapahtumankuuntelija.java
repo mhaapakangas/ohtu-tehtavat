@@ -18,9 +18,9 @@ public class Tapahtumankuuntelija implements ActionListener {
         this.undo = undo;
         this.sovellus = new Sovelluslogiikka();
         komennot = new HashMap<>();
-        komennot.put(plus, new Summa(tuloskentta, syotekentta, nollaa, undo, sovellus));
-        komennot.put(miinus, new Erotus(tuloskentta, syotekentta, nollaa, undo, sovellus));
-        komennot.put(nollaa, new Nollaa(tuloskentta, syotekentta,  nollaa, undo, sovellus));
+        komennot.put(plus, new Summa(tuloskentta, syotekentta, nollaa, sovellus));
+        komennot.put(miinus, new Erotus(tuloskentta, syotekentta, nollaa, sovellus));
+        komennot.put(nollaa, new Nollaa(tuloskentta, syotekentta,  nollaa, sovellus));
     }
     
     @Override
@@ -29,9 +29,11 @@ public class Tapahtumankuuntelija implements ActionListener {
             Komento komento = komennot.get((JButton) ae.getSource());
             komento.suorita();
             edellinen = komento;
+            undo.setEnabled(true);
         } else {
             edellinen.peru();
             edellinen = null;
+            undo.setEnabled(false);
         }
     }
  

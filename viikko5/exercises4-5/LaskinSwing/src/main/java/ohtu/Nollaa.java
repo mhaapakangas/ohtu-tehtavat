@@ -3,18 +3,20 @@ package ohtu;
 import javax.swing.*;
 
 public class Nollaa extends Komento {
-    public Nollaa(JTextField tuloskentta, JTextField syotekentta, JButton nollaa, JButton undo, Sovelluslogiikka sovellus) {
-        super(tuloskentta, syotekentta, nollaa, undo, sovellus);
+    public Nollaa(JTextField tuloskentta, JTextField syotekentta, JButton nollaa, Sovelluslogiikka sovellus) {
+        super(tuloskentta, syotekentta, nollaa, sovellus);
     }
 
     @Override
     public void suorita() {
+        edellinenArvo = sovellus.tulos();
         sovellus.nollaa();
         naytaLaskunTulos();
     }
 
     @Override
     public void peru() {
-        System.out.println("undo pressed");
+        sovellus.plus(edellinenArvo);
+        naytaLaskunTulos();
     }
 }

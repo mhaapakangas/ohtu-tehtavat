@@ -3,8 +3,8 @@ package ohtu;
 import javax.swing.*;
 
 public class Summa extends Komento {
-    public Summa(JTextField tuloskentta, JTextField syotekentta, JButton nollaa, JButton undo, Sovelluslogiikka sovellus) {
-        super(tuloskentta, syotekentta, nollaa, undo, sovellus);
+    public Summa(JTextField tuloskentta, JTextField syotekentta, JButton nollaa, Sovelluslogiikka sovellus) {
+        super(tuloskentta, syotekentta, nollaa, sovellus);
     }
 
     @Override
@@ -12,10 +12,12 @@ public class Summa extends Komento {
         int arvo = lueArvo();
         sovellus.plus(arvo);
         naytaLaskunTulos();
+        edellinenArvo = arvo;
     }
 
     @Override
     public void peru() {
-        System.out.println("undo pressed");
+        sovellus.miinus(edellinenArvo);
+        naytaLaskunTulos();
     }
 }

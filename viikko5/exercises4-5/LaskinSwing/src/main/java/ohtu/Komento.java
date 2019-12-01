@@ -6,14 +6,13 @@ public abstract class Komento {
     private JTextField tuloskentta;
     private JTextField syotekentta;
     private JButton nollaa;
-    private JButton undo;
     protected Sovelluslogiikka sovellus;
+    protected int edellinenArvo;
 
-    public Komento(JTextField tuloskentta, JTextField syotekentta, JButton nollaa, JButton undo, Sovelluslogiikka sovellus) {
+    public Komento(JTextField tuloskentta, JTextField syotekentta, JButton nollaa, Sovelluslogiikka sovellus) {
         this.tuloskentta = tuloskentta;
         this.syotekentta = syotekentta;
         this.nollaa = nollaa;
-        this.undo = undo;
         this.sovellus = sovellus;
     }
 
@@ -39,6 +38,5 @@ public abstract class Komento {
         } else {
             nollaa.setEnabled(true);
         }
-        undo.setEnabled(true);
     }
 }
