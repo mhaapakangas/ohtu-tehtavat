@@ -25,4 +25,9 @@ public class QueryBuilder {
         this.matcher = new And(this.matcher, new HasFewerThan(value, category));
         return this;
     }
+
+    public QueryBuilder oneOf(Matcher m1, Matcher m2) {
+        this.matcher = new Or(m1, m2);
+        return this;
+    }
 }
