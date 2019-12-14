@@ -5,6 +5,18 @@ import java.util.Scanner;
 public abstract class KPSPeli {
     protected static final Scanner scanner = new Scanner(System.in);
 
+    public static KPSPeli luoKaksinpeli() {
+        return new KPSPelaajaVsPelaaja();
+    }
+
+    public static KPSPeli luoHelppoYksinpeli() {
+        return new KPSTekoaly();
+    }
+
+    public static KPSPeli luoVaikeaYksinpeli() {
+        return new KPSParempiTekoaly();
+    }
+
     public final void pelaa() {
         alustaPeli();
         Tuomari tuomari = new Tuomari();
@@ -37,5 +49,5 @@ public abstract class KPSPeli {
 
     protected abstract String toisenPelaajanSiirto(String ekanSiirto);
 
-    protected void alustaPeli() {};
+    protected void alustaPeli() {}
 }
